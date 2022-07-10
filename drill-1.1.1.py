@@ -9,4 +9,3 @@ complex_sum = complex_number1 + complex_number2
 complex_product = complex_number1 * complex_number2
 print("Sum of complex numbers: " + str(complex_sum))
 print("Product of complex numbers: " + str(complex_product))
-
