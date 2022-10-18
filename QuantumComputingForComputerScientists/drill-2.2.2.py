@@ -18,7 +18,7 @@ def generate_complex_matrix(m, n=1, rnd_range=10):
 
 
 def multiply_matrices(a, b):
-    return a @ b  # alternatively use np.matmul
+    return a @ b  # alternatively use np.matmul()
 
 
 cm1 = generate_complex_matrix(2, 2)
