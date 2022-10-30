@@ -2,4 +2,4 @@
 #include <stdlib.h>
 #include <complex.h>
 
-double complex* get_input_qubits(char* filename);
+void get_input_qubits(char* filename, double complex** input_qubits, int* input_qubits_size);
