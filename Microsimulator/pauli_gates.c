@@ -1,13 +1,7 @@
 #include <complex.h>
 #include <cblas.h>
 #include <math.h>
-
-void _overwrite_qubit(double complex* qubit, double complex* result){
-    for (int row=0; row<2; row++)
-    {
-        qubit[row] = result[row];
-    }
-};
+#include "utils.h"
 
 void pauli_gate(double complex* qubit, const double complex* gate){
     const double alpha = 1.0, beta = 0.0;

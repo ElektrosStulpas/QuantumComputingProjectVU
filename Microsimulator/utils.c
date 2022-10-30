@@ -8,3 +8,10 @@ void print_qubit(double complex* qubit){
         printf("\n");
     }
 }
+
+void _overwrite_qubit(double complex* qubit, double complex* result){
+    for (int row=0; row<2; row++)
+    {
+        qubit[row] = result[row];
+    }
+};
