@@ -21,8 +21,29 @@ void tensor_qubits(int num_qubits, double complex* qubits){
 
             qubit_tensor[i] *= qubits[j + idx];
         }
-        // printf("%.2f %+.2fi\n", creal(qubit_tensor[i]), cimag(qubit_tensor[i]));
-        // printf("\n");
     }
 }
 
+void tensor_matrices(double complex* matrix_A, int cola, int rowa, double complex* matrix_B, int colb, int rowb, double complex** C)
+{
+    int i, k, j, l;
+    *C = (double complex*)malloc(rowa * rowb * cola * colb * sizeof(double complex));
+ 
+    for (i = 0; i < rowa; i++) {
+ 
+        for (j = 0; j < cola; j++) {
+ 
+            for (k = 0; k < rowb; k++) {
+ 
+                for (l = 0; l < colb; l++) {
+ 
+                    // Each element of matrix A is
+                    // multiplied by whole Matrix B
+                    // resp and stored as Matrix C
+                    (*C)[(((i*rowb) + k) * cola * colb + j * colb) + l]
+                        = matrix_A[i * cola + j] * matrix_B[k * colb + l];
+                }
+            }
+        }
+    }
+}
