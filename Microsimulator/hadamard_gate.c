@@ -2,6 +2,7 @@
 #include <cblas.h>
 #include <math.h>
 #include "utils.h"
+#include "tensor_prod.h"
 
 void hadamard_gate(double complex* qubit){
     double complex hadamard_value = 1/sqrt(2);
@@ -15,5 +16,15 @@ void hadamard_gate(double complex* qubit){
     _overwrite_qubit(qubit, result);
 };
 
-void hadamard_gate_N(double complex* qubits, int N){
+void generate_hadamard_gate_N(int N, double complex** hadamard_matrix_n){
+    double complex hadamard_value = 1/sqrt(2);
+    double complex hadamard_matrix[2*2] = {hadamard_value, hadamard_value, /* CblasRowMajor */
+                                          hadamard_value, -hadamard_value};
+
+    double complex* temp_had = hadamard_matrix;
+
+    for (int i = 0; i < N-1; i++){
+        tensor_matrices(hadamard_matrix, 2, 2, temp_had, (int)pow(2, i+1), (int)pow(2, i+1), &(*hadamard_matrix_n));
+        temp_had = *hadamard_matrix_n;
+    }
 };

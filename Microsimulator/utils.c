@@ -9,10 +9,19 @@ void print_qubit(double complex* qubit){
     }
 }
 
-void print_matrix(double complex* matrix, int rows, int cols){
+void print_matrix_full(double complex* matrix, int rows, int cols){
     for (int i = 0; i < rows; i++) {
         for (int j = 0; j < cols; j++) {
             printf("%.2f %+.2fi ", creal(matrix[i * cols + j]), cimag(matrix[i * cols + j]));
+        }
+        printf("\n");
+    }
+}
+
+void print_matrix_real(double complex* matrix, int rows, int cols){
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < cols; j++) {
+            printf("%.2f ", creal(matrix[i * cols + j]));
         }
         printf("\n");
     }
