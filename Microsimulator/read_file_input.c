@@ -17,10 +17,10 @@ void get_input_qubits(char* filename, double complex** input_qubits, int* input_
 
     *input_qubits = (double complex*)malloc((2 * (*input_qubits_size)) * sizeof(double complex));
 
-    for (int i = 0; i < *input_qubits_size*2; i=i+2){
+    for (int i = 0; i < *input_qubits_size; i++){
         fscanf(fin, "%d %d %d %d", &first_real, &first_imag, &second_real, &second_imag);
         (*input_qubits)[i] = first_real + first_imag * I;
-        (*input_qubits)[i+1] = second_real + second_imag * I;
+        (*input_qubits)[i + *input_qubits_size] = second_real + second_imag * I;
     }
 
     fclose(fin);

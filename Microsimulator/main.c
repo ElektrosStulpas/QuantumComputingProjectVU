@@ -5,9 +5,14 @@ int main(int argc, char *argv[]) {
     char *filename = argv[1];
     int input_qubits_size = 0;
     double complex* input_qubits = NULL;
+    double complex* qubit_tensor = NULL;
     get_input_qubits(filename, &input_qubits, &input_qubits_size);
 
-    grovers_algo(input_qubits, input_qubits_size);
+    print_matrix_real(input_qubits, 2, input_qubits_size);
+    tensor_qubits(input_qubits_size, input_qubits, &qubit_tensor);
+    print_matrix_real(qubit_tensor, pow(2, input_qubits_size), 1);
+
+    grovers_algo(input_qubits_size, input_qubits);
 
     free(input_qubits);
 
