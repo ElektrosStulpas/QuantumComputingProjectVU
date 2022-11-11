@@ -1,0 +1,9 @@
+{
+    "files.associations": {
+        "cmath": "c",
+        "complex": "c",
+        "functional": "c",
+        "quantum_gates.h": "c",
+        "grovers_algo.h": "c"
+    }
+}

@@ -1,7 +1,4 @@
-#include <stdio.h>
-#include <complex.h>
-#include <math.h>
-#include <stdlib.h>
+#include "operations.h"
 
 void tensor_qubits(int num_qubits, double complex* qubits, double complex** qubit_tensor){
     int idx, k;
@@ -47,4 +44,24 @@ void tensor_matrices(double complex* matrix_A, int cola, int rowa, double comple
             }
         }
     }
+}
+
+void mul_scal_matrix(double complex scal, double complex* matrix, int rows, int cols){
+
+    // cblas_zgemm(CblasRowMajor, CblasNoTrans, CblasNoTrans, rows, cols, 0, NULL, NULL, NULL, NULL, 0, &scal, matrix, cols);
+
+    for (int i = 0; i < rows; i++){
+        for (int j = 0; j < cols; j++){
+            matrix[i*rows + j] *= scal;
+        }
+    }
+};
+
+void mul_matrix_matrix(int m, int n, int k, const void* alpha, double complex* A, double complex* B, const void* beta, double complex* C){
+    cblas_zgemm(CblasRowMajor, CblasNoTrans, CblasNoTrans, 2, 1, 2, &alpha, A, m, B, n, &beta, C, 1);
+}
+
+void mul_matrix_vector(int m, int n, double complex* A, double complex* x, double complex* y){
+    const double alpha = 1.0, beta = 0.0;
+    cblas_zgemv(CblasRowMajor, CblasNoTrans, m, n, &alpha, A, m, x, 1, &beta, y, 1);
 }

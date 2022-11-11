@@ -8,6 +8,7 @@ int main(int argc, char *argv[]) {
     double complex* qubit_tensor = NULL;
     get_input_qubits(filename, &input_qubits, &input_qubits_size);
 
+    // mul_scal_matrix(3, input_qubits, 2, input_qubits_size);
     print_matrix_real(input_qubits, 2, input_qubits_size);
     tensor_qubits(input_qubits_size, input_qubits, &qubit_tensor);
     print_matrix_real(qubit_tensor, pow(2, input_qubits_size), 1);
@@ -15,6 +16,7 @@ int main(int argc, char *argv[]) {
     grovers_algo(input_qubits_size, input_qubits);
 
     free(input_qubits);
+    free(qubit_tensor);
 
     // double complex* A = malloc(2*2* sizeof(double complex));
     // double complex* B = malloc(4*4* sizeof(double complex));

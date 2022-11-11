@@ -1,5 +1,6 @@
 #include <complex.h>
 #include <math.h>
-#include "hadamard_gate.h"
+#include "quantum_gates.h"
+#include "qubits.h"
 
 void grovers_algo(int n_qubits, double complex* input_qubits);
