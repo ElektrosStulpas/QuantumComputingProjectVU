@@ -4,6 +4,7 @@
         "complex": "c",
         "functional": "c",
         "quantum_gates.h": "c",
-        "grovers_algo.h": "c"
+        "grovers_algo.h": "c",
+        "*.tcc": "c"
     }
 }

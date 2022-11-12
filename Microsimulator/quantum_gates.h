@@ -7,4 +7,5 @@
 double complex* generate_hadamard_gate();
 double complex* generate_hadamard_gate_N(int N);
 double complex* generate_identity_gate();
-double complex* generate_identity_gate_N(int N);
+double complex* generate_identity_gate_N(int N_dim);
+void mean_inversion(double complex** V, int vec_dim);

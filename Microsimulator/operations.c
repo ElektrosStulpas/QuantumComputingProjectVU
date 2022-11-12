@@ -57,11 +57,57 @@ void mul_scal_matrix(double complex scal, double complex* matrix, int rows, int 
     }
 };
 
+void add_scal_matrix(double complex scal, double complex* matrix, int rows, int cols){
+
+    for (int i = 0; i < rows; i++){
+        for (int j = 0; j < cols; j++){
+            matrix[i*rows + j] += scal;
+        }
+    }
+};
+
+double complex* add_matrix_matrix_point(double complex* A, double complex* B, int rows, int cols){
+    double complex* result = malloc(rows*cols * sizeof(double complex));
+
+    for (int i = 0; i < rows; i++){
+        for (int j = 0; j < cols; j++){
+            result[i*rows + j] = A[i*rows + j] + B[i*rows + j];
+        }
+    }
+    return result;
+}
+
 void mul_matrix_matrix(int m, int n, int k, const void* alpha, double complex* A, double complex* B, const void* beta, double complex* C){
     cblas_zgemm(CblasRowMajor, CblasNoTrans, CblasNoTrans, 2, 1, 2, &alpha, A, m, B, n, &beta, C, 1);
 }
 
-void mul_matrix_vector(int m, int n, double complex* A, double complex* x, double complex* y){
+double complex* mul_matrix_vector(int m, int n, double complex* A, double complex* x){
+    double complex* y = malloc(m * sizeof(double complex));
     const double alpha = 1.0, beta = 0.0;
     cblas_zgemv(CblasRowMajor, CblasNoTrans, m, n, &alpha, A, m, x, 1, &beta, y, 1);
+    return y;
+}
+
+void measure(double complex* state, int vec_dim){
+    double biggest_probability = 0, probability;
+    int most_probable_idx;
+
+    //find the biggest probability index
+    for (int i = 0; i < vec_dim; i++){
+        probability = pow(state[i], 2);
+        if (probability > biggest_probability){
+            biggest_probability = probability;
+            most_probable_idx = i;
+        }
+    }
+
+    //set everything to 0, biggest probability to 1 ("collapse")
+    for (int i = 0; i < vec_dim; i++){
+        if (i == most_probable_idx){
+            state[i] = 1;
+        }
+        else{
+            state[i] = 0;
+        }
+    }
 }
