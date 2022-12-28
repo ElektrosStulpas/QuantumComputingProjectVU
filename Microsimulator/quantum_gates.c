@@ -12,10 +12,8 @@ double complex* generate_hadamard_gate(){
 };
 
 double complex* generate_hadamard_gate_N(int qubit_num){
-    double complex* hadamard_matrix_n = NULL;
-    double complex hadamard_value = 1/sqrt(2);
-    double complex hadamard_matrix[2*2] = {hadamard_value, hadamard_value,
-                                          hadamard_value, -hadamard_value};
+    double complex* hadamard_matrix_n = generate_hadamard_gate();;
+    double complex* hadamard_matrix = generate_hadamard_gate();
 
     double complex* temp_had = hadamard_matrix;
 
@@ -27,22 +25,28 @@ double complex* generate_hadamard_gate_N(int qubit_num){
 };
 
 double complex* generate_identity_gate(){
-    return generate_identity_gate_N(2);
+    double complex* identity_matrix = calloc(2*2, sizeof(double complex));
+    identity_matrix[0] = 1;
+    identity_matrix[3] = 1;
+    return identity_matrix;
 };
 
-double complex* generate_identity_gate_N(int N_dim){
-    // int dim = pow(2, qubit_num);
-    double complex* identity_matrix_n = (double complex*)calloc(N_dim*N_dim, sizeof(double complex));
+double complex* generate_identity_gate_N(int qubit_num){
+    double complex* identity_matrix_n = generate_identity_gate();
+    double complex* identity_matrix = generate_identity_gate();
+    double complex* temp_iden = identity_matrix;
 
-    for (int i = 0; i < N_dim; i++)
-        identity_matrix_n[i+i*N_dim] = 1;
-
+    for (int i = 0; i < qubit_num-1; i++){
+        tensor_matrices(identity_matrix, 2, 2, temp_iden, (int)pow(2, i+1), (int)pow(2, i+1), &identity_matrix_n);
+        temp_iden = identity_matrix_n;
+    }
     return identity_matrix_n;
 }
 
-void mean_inversion(double complex** V, int vec_dim){
+void mean_inversion(double complex** V, int qubit_num){
+    int vec_dim = pow(2, qubit_num);
     //-I
-    double complex* iden_N = generate_identity_gate_N(vec_dim);
+    double complex* iden_N = generate_identity_gate_N(qubit_num);
     mul_scal_matrix(-1, iden_N, vec_dim, vec_dim);
 
     //2A

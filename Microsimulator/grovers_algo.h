@@ -3,4 +3,5 @@
 #include "quantum_gates.h"
 #include "qubits.h"
 
-void grovers_algo(int n_qubits, double complex* input_qubits);
+double complex* Uf(int query, int qubit_num);
+void grovers_algo(int n_qubits, double complex* input_qubits, int query);

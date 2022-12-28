@@ -1,14 +1,14 @@
 #include "operations.h"
 
-void tensor_qubits(int num_qubits, double complex* qubits, double complex** qubit_tensor){
+double complex* tensor_qubits(int num_qubits, double complex* qubits){
     int idx, k;
     int qubit_tensor_dim = pow(2, num_qubits);
 
-    *qubit_tensor = (double complex*)malloc(qubit_tensor_dim * sizeof(double complex));
+    double complex* qubit_tensor = (double complex*)malloc(qubit_tensor_dim * sizeof(double complex));
 
     for (int i = 0; i < qubit_tensor_dim; i++)
     {
-        (*qubit_tensor)[i] = 1;
+        qubit_tensor[i] = 1;
 
         k = i;
         // for (int j = num_qubits*2 - 2; j >= 0; j = j - 2)
@@ -17,9 +17,10 @@ void tensor_qubits(int num_qubits, double complex* qubits, double complex** qubi
             idx = k % 2;
             k = k / 2;
 
-            (*qubit_tensor)[i] *= qubits[j + idx * num_qubits];
+            qubit_tensor[i] *= qubits[j + idx * num_qubits];
         }
     }
+    return qubit_tensor;
 }
 
 void tensor_matrices(double complex* matrix_A, int cola, int rowa, double complex* matrix_B, int colb, int rowb, double complex** C)

@@ -9,11 +9,11 @@ int main(int argc, char *argv[]) {
     get_input_qubits(filename, &input_qubits, &input_qubits_size);
 
     // mul_scal_matrix(3, input_qubits, 2, input_qubits_size);
-    print_matrix_real(input_qubits, 2, input_qubits_size);
-    tensor_qubits(input_qubits_size, input_qubits, &qubit_tensor);
-    print_matrix_real(qubit_tensor, pow(2, input_qubits_size), 1);
+    // print_matrix_real(input_qubits, 2, input_qubits_size);
+    // tensor_qubits(input_qubits_size, input_qubits, &qubit_tensor);
+    // print_matrix_real(qubit_tensor, pow(2, input_qubits_size), 1);
 
-    grovers_algo(input_qubits_size, input_qubits);
+    grovers_algo(input_qubits_size, input_qubits, atoi(argv[2]));
 
     free(input_qubits);
     free(qubit_tensor);
