@@ -49,8 +49,6 @@ void tensor_matrices(double complex* matrix_A, int cola, int rowa, double comple
 
 void mul_scal_matrix(double complex scal, double complex* matrix, int rows, int cols){
 
-    // cblas_zgemm(CblasRowMajor, CblasNoTrans, CblasNoTrans, rows, cols, 0, NULL, NULL, NULL, NULL, 0, &scal, matrix, cols);
-
     for (int i = 0; i < rows; i++){
         for (int j = 0; j < cols; j++){
             matrix[i*rows + j] *= scal;
@@ -78,14 +76,18 @@ double complex* add_matrix_matrix_point(double complex* A, double complex* B, in
     return result;
 }
 
-void mul_matrix_matrix(int m, int n, int k, const void* alpha, double complex* A, double complex* B, const void* beta, double complex* C){
-    cblas_zgemm(CblasRowMajor, CblasNoTrans, CblasNoTrans, 2, 1, 2, &alpha, A, m, B, n, &beta, C, 1);
-}
-
 double complex* mul_matrix_vector(int m, int n, double complex* A, double complex* x){
+    double complex sum;
     double complex* y = malloc(m * sizeof(double complex));
-    const double alpha = 1.0, beta = 0.0;
-    cblas_zgemv(CblasRowMajor, CblasNoTrans, m, n, &alpha, A, m, x, 1, &beta, y, 1);
+
+    for (int i = 0; i < m; i++){
+        sum = 0;
+        for (int j = 0; j < n; j++){
+            sum += A[i*n+j]*x[j];
+        }
+        y[i] = sum;
+    }
+    
     return y;
 }
 

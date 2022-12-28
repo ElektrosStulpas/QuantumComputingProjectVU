@@ -1,5 +1,4 @@
 #include <complex.h>
-#include <cblas.h>
 #include <math.h>
 #include "utils.h"
 #include "operations.h"

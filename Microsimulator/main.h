@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include "pauli_gates.h"
 #include "utils.h"
 #include "quantum_gates.h"
 #include "read_file_input.h"
