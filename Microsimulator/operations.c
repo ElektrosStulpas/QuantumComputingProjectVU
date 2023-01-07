@@ -97,8 +97,11 @@ void measure(double complex* state, int vec_dim){
 
     //find the biggest probability index
     for (int i = 0; i < vec_dim; i++){
-        probability = pow(state[i], 2);
+        probability = pow(fabs(state[i]), 2);
         if (probability > biggest_probability){
+            biggest_probability = probability;
+            most_probable_idx = i;
+        } else if (probability == biggest_probability && rand()%2 == 0){
             biggest_probability = probability;
             most_probable_idx = i;
         }

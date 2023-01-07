@@ -24,21 +24,15 @@ void get_input_qubits(char* filename, double complex** input_qubits, int* input_
     }
 
     fclose(fin);
+}
 
-    // for (int i = 0; i < array_size*2; i+=2) {
-    //     printf("%d qubit:\n", i);
-    //     printf("%.2f %+.2fi\n", creal(input_qubits[i]), cimag(input_qubits[i]));
-    //     printf("\n");
-    //     printf("%.2f %+.2fi\n", creal(input_qubits[i+1]), cimag(input_qubits[i+1]));
-    //     printf("\n");
-    // }
+void default_input(double complex** input_qubits, int* input_qubits_size){
+    *input_qubits_size = 4;
 
-    // for (int i = 0; i < array_size; i++){
-    //     fscanf(fin, "%d %d %d %d", &first_real, &first_imag, &second_real, &second_imag);
-    //     input_qubits[i] = first_real + first_imag * I;
-    //     input_qubits[array_size+i] = second_real + second_imag * I;
-    // }
+    *input_qubits = (double complex*)malloc((2 * (*input_qubits_size)) * sizeof(double complex));
 
-    // free(input_qubits);
-    // return input_qubits;
+    for (int i = 0; i < *input_qubits_size; i++){
+        (*input_qubits)[i] = 1;
+        (*input_qubits)[i + *input_qubits_size] = 0;
+    }
 }
