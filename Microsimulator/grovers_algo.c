@@ -12,6 +12,11 @@ double complex* Uf(int query, int qubit_num){
     return function_matrix;
 }
 
+double complex* alt_flip_func(double complex* state_vector, int query){
+    state_vector[query] *= -1;
+    return state_vector;
+}
+
 void grovers_algo(int n_qubits, double complex* input_qubits, int query){
 
     //tensor dimension for state vector
@@ -29,14 +34,15 @@ void grovers_algo(int n_qubits, double complex* input_qubits, int query){
     //phase and mean inversion cycle
     int inversion_times = sqrt(n_qubits);
     // printf("generated flip function:\n");
-    double complex* flip_function = Uf(query, n_qubits);
+    // double complex* flip_function = Uf(query, n_qubits);
     // print_matrix_real(flip_function, spos_dim, spos_dim);
 
     printf("beginning cycle:\n");
     for (int i = 0; i < inversion_times; i++){
         //apply flip function to pick out requested query
         printf("apply flip function to pick out requested query:\n");
-        state_vector = mul_matrix_vector(spos_dim, spos_dim, flip_function, state_vector);
+        // state_vector = mul_matrix_vector(spos_dim, spos_dim, flip_function, state_vector);
+        state_vector = alt_flip_func(state_vector, query);
         print_matrix_real(state_vector, 1, spos_dim);
 
         //inversion about mean
